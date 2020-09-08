@@ -11,7 +11,7 @@ import stellargraph as sg
 from stellargraph.data import EdgeSplitter
 from stellargraph.mapper import GraphSAGELinkGenerator
 
-from stellargraph.layer import graphsage, hinsage, link_classification
+from stellargraph.layer import GraphSAGE, HinSAGE, link_classification
 
 from tensorflow import keras
 from sklearn import preprocessing, feature_extraction, model_selection
@@ -142,7 +142,7 @@ test_flow = test_gen.flow(edge_ids_test, edge_labels_test)
 
 layer_sizes = [20, 20]
 
-graphsage = graphsage(layer_sizes=layer_sizes,
+graphsage = GraphSAGE(layer_sizes=layer_sizes,
         generator=train_gen, bias=True, dropout=0.3)
 
 
@@ -164,9 +164,9 @@ prediction = link_classification( output_dim=1, output_act="relu",
 
 # stack the graphsage and prediction layers into a keras model,
 # and specify the loss
-model = keras.model(inputs=x_inp, outputs=prediction)
+model = keras.Model(inputs=x_inp, outputs=prediction)
 
-model.compile( optimizer=keras.optimizers.adam(lr=1e-3),
+model.compile( optimizer=keras.optimizers.Adam(lr=1e-3),
         loss=keras.losses.binary_crossentropy, metrics=["acc"],)
 
 
