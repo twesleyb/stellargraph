@@ -1,0 +1,25 @@
+StellarGraph: Undirected multigraph
+ Nodes: 2708, Edges: 5429
+
+ Node types:
+  paper: [2708]
+    Features: float32 vector, length 1440 # what is the feauter?
+    Edge types: paper-cites->paper
+
+ Edge types:
+    paper-cites->paper: [5429]
+        Weights: all 1 (default)
+        Features: none
+
+StellarGraph: Undirected multigraph
+ Nodes: 15934, Edges: 362729
+
+ Node types:
+  default: [15934]
+    Features: none
+    Edge types: default-default->default
+
+ Edge types:
+    default-default->default: [362729]
+        Weights: all 1 (default)
+        Features: none

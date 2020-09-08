@@ -1,0 +1,136 @@
+StellarGraph: Undirected multigraph
+ Nodes: 2708, Edges: 5429
+
+ Node types:
+  paper: [2708]
+    Features: float32 vector, length 1440
+    Edge types: paper-cites->paper
+
+ Edge types:
+    paper-cites->paper: [5429]
+        Weights: all 1 (default)
+        Features: none
+** Sampled 542 positive and 542 negative edges. **
+** Sampled 488 positive and 488 negative edges. **
+Using GCN (local pooling) filters...
+Using GCN (local pooling) filters...
+1/1 [==============================] - ETA: 0s - loss: 1.7637 - binary_accuracy: 0.50001/1 [==============================] - 0s 321us/step - loss: 1.7637 - binary_accuracy: 0.5000
+1/1 [==============================] - ETA: 0s - loss: 1.7357 - binary_accuracy: 0.50001/1 [==============================] - 0s 287us/step - loss: 1.7357 - binary_accuracy: 0.5000
+
+Train Set Metrics of the initial (untrained) model:
+	loss: 1.7637
+	binary_accuracy: 0.5000
+
+Test Set Metrics of the initial (untrained) model:
+	loss: 1.7357
+	binary_accuracy: 0.5000
+Epoch 1/50
+1/1 - 0s - loss: 1.6658 - binary_accuracy: 0.5000 - val_loss: 3.2647 - val_binary_accuracy: 0.5009
+Epoch 2/50
+1/1 - 0s - loss: 3.2802 - binary_accuracy: 0.5195 - val_loss: 0.7718 - val_binary_accuracy: 0.6255
+Epoch 3/50
+1/1 - 0s - loss: 0.7472 - binary_accuracy: 0.6322 - val_loss: 0.8539 - val_binary_accuracy: 0.5360
+Epoch 4/50
+1/1 - 0s - loss: 0.8385 - binary_accuracy: 0.5430 - val_loss: 0.8093 - val_binary_accuracy: 0.5673
+Epoch 5/50
+1/1 - 0s - loss: 0.8145 - binary_accuracy: 0.5605 - val_loss: 0.6987 - val_binary_accuracy: 0.6116
+Epoch 6/50
+1/1 - 0s - loss: 0.7510 - binary_accuracy: 0.6096 - val_loss: 1.0813 - val_binary_accuracy: 0.5664
+Epoch 7/50
+1/1 - 0s - loss: 1.2741 - binary_accuracy: 0.6004 - val_loss: 0.7433 - val_binary_accuracy: 0.6015
+Epoch 8/50
+1/1 - 0s - loss: 0.7802 - binary_accuracy: 0.6270 - val_loss: 0.6899 - val_binary_accuracy: 0.5913
+Epoch 9/50
+1/1 - 0s - loss: 0.6801 - binary_accuracy: 0.6465 - val_loss: 0.7116 - val_binary_accuracy: 0.5803
+Epoch 10/50
+1/1 - 0s - loss: 0.6718 - binary_accuracy: 0.6332 - val_loss: 0.7213 - val_binary_accuracy: 0.5904
+Epoch 11/50
+1/1 - 0s - loss: 0.6705 - binary_accuracy: 0.6281 - val_loss: 0.7137 - val_binary_accuracy: 0.5913
+Epoch 12/50
+1/1 - 0s - loss: 0.6443 - binary_accuracy: 0.6496 - val_loss: 0.7071 - val_binary_accuracy: 0.6089
+Epoch 13/50
+1/1 - 0s - loss: 0.6574 - binary_accuracy: 0.6762 - val_loss: 0.7251 - val_binary_accuracy: 0.6393
+Epoch 14/50
+1/1 - 0s - loss: 0.6585 - binary_accuracy: 0.6742 - val_loss: 0.7787 - val_binary_accuracy: 0.6384
+Epoch 15/50
+1/1 - 0s - loss: 0.6234 - binary_accuracy: 0.6824 - val_loss: 0.8092 - val_binary_accuracy: 0.6421
+Epoch 16/50
+1/1 - 0s - loss: 0.6626 - binary_accuracy: 0.6957 - val_loss: 0.7785 - val_binary_accuracy: 0.6504
+Epoch 17/50
+1/1 - 0s - loss: 0.6257 - binary_accuracy: 0.6936 - val_loss: 0.7436 - val_binary_accuracy: 0.6541
+Epoch 18/50
+1/1 - 0s - loss: 0.6398 - binary_accuracy: 0.7418 - val_loss: 0.6829 - val_binary_accuracy: 0.6338
+Epoch 19/50
+1/1 - 0s - loss: 0.5654 - binary_accuracy: 0.7275 - val_loss: 0.6809 - val_binary_accuracy: 0.6273
+Epoch 20/50
+1/1 - 0s - loss: 0.5766 - binary_accuracy: 0.6885 - val_loss: 0.6839 - val_binary_accuracy: 0.6227
+Epoch 21/50
+1/1 - 0s - loss: 0.5791 - binary_accuracy: 0.6967 - val_loss: 0.6790 - val_binary_accuracy: 0.6255
+Epoch 22/50
+1/1 - 0s - loss: 0.5287 - binary_accuracy: 0.7131 - val_loss: 0.6996 - val_binary_accuracy: 0.6411
+Epoch 23/50
+1/1 - 0s - loss: 0.5199 - binary_accuracy: 0.7357 - val_loss: 0.7386 - val_binary_accuracy: 0.6476
+Epoch 24/50
+1/1 - 0s - loss: 0.5442 - binary_accuracy: 0.7439 - val_loss: 0.8516 - val_binary_accuracy: 0.6513
+Epoch 25/50
+1/1 - 0s - loss: 0.5008 - binary_accuracy: 0.7602 - val_loss: 0.9165 - val_binary_accuracy: 0.6587
+Epoch 26/50
+1/1 - 0s - loss: 0.5603 - binary_accuracy: 0.7592 - val_loss: 0.9184 - val_binary_accuracy: 0.6550
+Epoch 27/50
+1/1 - 0s - loss: 0.5815 - binary_accuracy: 0.7490 - val_loss: 0.8946 - val_binary_accuracy: 0.6614
+Epoch 28/50
+1/1 - 0s - loss: 0.4808 - binary_accuracy: 0.7879 - val_loss: 0.8547 - val_binary_accuracy: 0.6642
+Epoch 29/50
+1/1 - 0s - loss: 0.5281 - binary_accuracy: 0.7746 - val_loss: 0.7848 - val_binary_accuracy: 0.6697
+Epoch 30/50
+1/1 - 0s - loss: 0.4476 - binary_accuracy: 0.7869 - val_loss: 0.7715 - val_binary_accuracy: 0.6577
+Epoch 31/50
+1/1 - 0s - loss: 0.4308 - binary_accuracy: 0.7961 - val_loss: 0.7718 - val_binary_accuracy: 0.6614
+Epoch 32/50
+1/1 - 0s - loss: 0.4571 - binary_accuracy: 0.8023 - val_loss: 0.7703 - val_binary_accuracy: 0.6633
+Epoch 33/50
+1/1 - 0s - loss: 0.4379 - binary_accuracy: 0.8002 - val_loss: 0.7772 - val_binary_accuracy: 0.6633
+Epoch 34/50
+1/1 - 0s - loss: 0.4183 - binary_accuracy: 0.8033 - val_loss: 0.8078 - val_binary_accuracy: 0.6744
+Epoch 35/50
+1/1 - 0s - loss: 0.4510 - binary_accuracy: 0.7961 - val_loss: 0.8442 - val_binary_accuracy: 0.6836
+Epoch 36/50
+1/1 - 0s - loss: 0.4441 - binary_accuracy: 0.7992 - val_loss: 0.8704 - val_binary_accuracy: 0.6836
+Epoch 37/50
+1/1 - 0s - loss: 0.4204 - binary_accuracy: 0.8176 - val_loss: 0.8894 - val_binary_accuracy: 0.6827
+Epoch 38/50
+1/1 - 0s - loss: 0.4426 - binary_accuracy: 0.8248 - val_loss: 0.8913 - val_binary_accuracy: 0.6836
+Epoch 39/50
+1/1 - 0s - loss: 0.4067 - binary_accuracy: 0.8258 - val_loss: 0.8698 - val_binary_accuracy: 0.6854
+Epoch 40/50
+1/1 - 0s - loss: 0.4052 - binary_accuracy: 0.8320 - val_loss: 0.8633 - val_binary_accuracy: 0.6900
+Epoch 41/50
+1/1 - 0s - loss: 0.3998 - binary_accuracy: 0.8371 - val_loss: 0.8385 - val_binary_accuracy: 0.6873
+Epoch 42/50
+1/1 - 0s - loss: 0.3934 - binary_accuracy: 0.8535 - val_loss: 0.8039 - val_binary_accuracy: 0.6863
+Epoch 43/50
+1/1 - 0s - loss: 0.3834 - binary_accuracy: 0.8299 - val_loss: 0.8120 - val_binary_accuracy: 0.6891
+Epoch 44/50
+1/1 - 0s - loss: 0.3753 - binary_accuracy: 0.8432 - val_loss: 0.8078 - val_binary_accuracy: 0.6863
+Epoch 45/50
+1/1 - 0s - loss: 0.3634 - binary_accuracy: 0.8494 - val_loss: 0.8098 - val_binary_accuracy: 0.6900
+Epoch 46/50
+1/1 - 0s - loss: 0.3400 - binary_accuracy: 0.8514 - val_loss: 0.8516 - val_binary_accuracy: 0.6919
+Epoch 47/50
+1/1 - 0s - loss: 0.3571 - binary_accuracy: 0.8443 - val_loss: 0.8738 - val_binary_accuracy: 0.6974
+Epoch 48/50
+1/1 - 0s - loss: 0.3315 - binary_accuracy: 0.8637 - val_loss: 0.8816 - val_binary_accuracy: 0.7030
+Epoch 49/50
+1/1 - 0s - loss: 0.3569 - binary_accuracy: 0.8596 - val_loss: 0.8899 - val_binary_accuracy: 0.7039
+Epoch 50/50
+1/1 - 0s - loss: 0.3848 - binary_accuracy: 0.8596 - val_loss: 0.8007 - val_binary_accuracy: 0.6946
+1/1 [==============================] - ETA: 0s - loss: 0.2931 - binary_accuracy: 0.89861/1 [==============================] - 0s 317us/step - loss: 0.2931 - binary_accuracy: 0.8986
+1/1 [==============================] - ETA: 0s - loss: 0.8007 - binary_accuracy: 0.69461/1 [==============================] - 0s 306us/step - loss: 0.8007 - binary_accuracy: 0.6946
+
+Train Set Metrics of the trained model:
+	loss: 0.2931
+	binary_accuracy: 0.8986
+
+Test Set Metrics of the trained model:
+	loss: 0.8007
+	binary_accuracy: 0.6946
