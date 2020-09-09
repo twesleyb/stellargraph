@@ -43,7 +43,8 @@ print(cora.info())
 
 # nodes: papers
 # edges: paperA <cites> paperB
-# node features: 0 or 1 indicating absence/presence in word vec (1,433)
+# node features: 0 or 1 indicating absence/presence
+# in word vector containing 1,433 words
 
 df = pd.read_csv('mus_hitpredict_ppis.csv',
         header=0, index_col=0)
@@ -58,6 +59,9 @@ g = nx.Graph()
 
 for e in edge_tuples:
     g.add_edge(*e)
+
+# to create a weighted edge:
+#g.add_edgs("a","b",weigth=1.0)
 
 # coerce to StellarGraph
 G = sg.StellarGraph.from_networkx(g)
