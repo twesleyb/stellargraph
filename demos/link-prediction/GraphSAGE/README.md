@@ -1,47 +1,6 @@
-#!/usr/bin/env python
-'''
-Link Prediction in homogenous graphs with GraphSAGE
-'''
+# Link Prediction in homogenous graphs with GraphSAGE
 
-## input
-# * Cora dataset from stellargraph.datasets
-
-## output
-
-## options
-epochs = 20
-batch_size = 20
-
-## imports
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' # suppress tf msgs
-
-import stellargraph as sg
-
-from stellargraph import globalvar
-from stellargraph import datasets
-
-from stellargraph.data import EdgeSplitter
-from stellargraph.mapper import GraphSAGELinkGenerator
-
-from stellargraph.layer import GraphSAGE
-from stellargraph.layer import HinSAGE
-from stellargraph.layer import link_classification
-
-from tensorflow import keras
-
-from sklearn import preprocessing
-from sklearn import feature_extraction
-from sklearn import model_selection
-
-
-## load the cora network data
-dataset = datasets.Cora()
-[g, _] = dataset.load(subject_as_feature=True)
-
-#print(_) # _ pandas Series descibing node (paper) subject-classes
-
-# Cora dataset:
+## Cora dataset (stellargraph.datasets):
 '''
  Cora: https://linqs.soe.ucsc.edu/data
 The Cora dataset consists of 2,708 scientific publications classified into one
@@ -51,7 +10,7 @@ absence/presence of the corresponding word from the dictionary. The dictionary
 consists of 1433 unique words.
 '''
 
-# datasets.load
+## datasets.load
 '''
 Help on method load in module stellargraph.datasets.datasets:
 >>> load(directed=False,
@@ -66,7 +25,7 @@ Help on method load in module stellargraph.datasets.datasets:
     Series of the node subject class labels.
 '''
 
-#print(g.info())
+## stellargraph.info
 
 '''
 Name: subject, Length: 2708, dtype: object
@@ -85,6 +44,7 @@ StellarGraph: Undirected multigraph
 '''
 
 # EdgeSplitter class
+
 '''
 class EdgeSplitter(builtins.object)
 EdgeSplitter(g, g_master=None)
@@ -140,64 +100,21 @@ Returns:
 
  '''
 
-# initialize EdgeSplitter class
-edge_splitter_test = EdgeSplitter(g)
-
-# train_test_split: generate testing dataset
-# take the input graph, and randomly remove positive and negative edges
-print("\nGenerating testing dataset:")
-[g_test,test_ids,test_labels] = \
-        edge_splitter_test.train_test_split(
-                p=0.1, # fraction of edges to remove
-                method="global", # sample globally
-                keep_connected=True) # remove edges, but don't break-up graph
-
-# Repeat
-
-# initialize EdgeSplitter class
-edge_splitter_train = EdgeSplitter(g_test) # NOTE: input is g_test!
-
-# train_test_split: generate training dataset
-# take the test graph, and randomly remove positive and negative edges
-print("\nGenerating training dataset:")
-[g_train, train_ids, train_labels] = \
-        edge_splitter_train.train_test_split(
-                p=0.1,
-                method="global",
-                keep_connected=True)
+# The test graph
 
 '''
-# print(g_test.info())
-StellarGraph: Undirected multigraph
 
 Nodes (paper): 2708
 Edges (cites): 5429
-
-** Sampled 542 positive and 542 negative edges. **
-
-Nodes (paper): 2708
-Edges (cites): 4399
-
-** Sampled 488 positive and 488 negative edges. **
-
- Nodes: 2708
- Edges: 4887
-
- Node types:
-  paper: [2708]
-    Features: float32 vector, length 1440
-    Edge types: paper-cites->paper
-
- Edge types:
-    paper-cites->paper: [4887]
-        Weights: all 1 (default)
-        Features: none
-
 '''
 
-'''
-#print(help(GraphSAGELinkGenerator))
+`** Sampled 542 positive and 542 negative edges. **`
 
+`** Sampled 488 positive and 488 negative edges. **`
+
+## GraphSAGELinkGenerator
+
+'''
 class GraphSAGELinkGenerator
 @stellargraph.mapper.sampled_link_generators
 
@@ -213,27 +130,8 @@ Returns a list of len(num_samples) of features form the sampled nodes:
     len(head_nodes),num_sampled_at_layer,feature_size)
 '''
 
-# generate data for link prediction
-train_gen = GraphSAGELinkGenerator(
-        g_train,
-        batch_size,
-        num_samples = [20,10])
-
-# use the flow method supplied with (node) train_ids and train_labels (numeric
-# targets) to create a generator for training
-train_flow = train_gen.flow(train_ids, train_labels, shuffle=True)
-
-# repeat for testing dataset:
-test_gen = GraphSAGELinkGenerator(
-        g_test,
-        batch_size,
-        num_samples=[20,10])
-
-test_flow = test_gen.flow(test_ids, test_labels, shuffle=False)
-
-'''
 # print(help(train_gen.flow))
-
+'''
 stellargraph.mapper.sampled_link_generators:
 method of stellargraph.mapper.sampled_link_generators.GraphSAGELinkGenerator
 instance Creates a generator/sequence object for training or evaluation
@@ -253,18 +151,8 @@ False for prediction.
 
 '''
 
-# build the GraphSAGE model using the training generator object
-graphsage = GraphSAGE(
-        layer_sizes = [20,20],
-        generator=train_gen,
-        bias=True,
-        dropout=0.3)
-
-# build the model and expose input and output sockets of graphsage model for link prediction
-# call the in_out_tensors()
-
-'''
 # print(help(graphsage.in_out_tensors))
+'''
 
 stellargraph.layer.graphsage.GraphSAGE
 Builds a GraphSAGE model for node or link/node pair prediction,
@@ -283,32 +171,9 @@ layer_sizes[-1])
 
 '''
 
-[x_inp, x_out] = graphsage.in_out_tensors()
-
-
-# final link classification layer that takes a pair of node embeddings
-# produced by graphsage, applies a binary operator to them to produce the
-# corresponding link embedding and passes it through a dense layer:
-# defines a function that generates binary predictions for edges classification output from node embeddings
-prediction = link_classification(
-        output_dim=1,
-        output_act="relu",
-        edge_embedding_method="ip")(x_out)
-
-
-# stack the graphsage and prediction layers into a keras model,
-# and specify the loss
-model = keras.Model(inputs=x_inp, outputs=prediction) # input and ouptut layers
-
-model.compile(
-        optimizer=keras.optimizers.Adam(lr=1e-3), # the optimizer to be used (tf.keras.optimizers)
-        loss=keras.losses.binary_crossentropy, # objective loss function (tf.keras.losses)
-        metrics=["accuracy"]) # metrics to be evaluated during training and testing (tf.keras.metrics)
-
-
-'''
 # print(help(model.evaluate))
 
+'''
 @tensorflow.python.keras.engine.training
 Returns the loss value & metrics values for the model in test mode.
 NOTE: Computation is done in batches (see the `batch_size` arg.)
@@ -333,39 +198,3 @@ and/or metrics). The attribute `model.metrics_names` will give you
 the display labels for the scalar outputs.
 
 '''
-
-# evaluate the initial (untrained) model on the training data:
-init_train_metrics = model.evaluate(train_flow)
-print("\ntrain set metrics of the initial (untrained) model:")
-for name, val in zip(model.metrics_names, init_train_metrics):
-    print("\t{}: {:0.4f}".format(name, val))
-
-
-# evaulate the initial (untrained) model on the testing data:
-init_test_metrics = model.evaluate(test_flow)
-print("\ntest set metrics of the initial (untrained) model:")
-for name, val in zip(model.metrics_names, init_test_metrics):
-    print("\t{}: {:0.4f}".format(name, val))
-
-
-# train the model:
-history = model.fit(
-        train_flow,
-        epochs=epochs,
-        validation_data=test_flow,
-        verbose=2)
-
-# sg.utils.plot_history(history)
-dir(history)
-
-
-# evaluate the trained model on test citation links:
-train_metrics = model.evaluate(train_flow)
-print("\ntrain set metrics of the trained model:")
-for name, val in zip(model.metrics_names, train_metrics):
-    print("\t{}: {:0.4f}".format(name, val))
-
-test_metrics = model.evaluate(test_flow)
-print("\ntest set metrics of the trained model:")
-for name, val in zip(model.metrics_names, test_metrics):
-    print("\t{}: {:0.4f}".format(name, val))
