@@ -287,7 +287,6 @@ plt.ylabel("count")
 plt.legend(("True", "Predicted"))
 plt.show()
 
-
 # We see that our model beats the "mean baseline" by a significant margin. To
 # further improve the model, you can try increasing the number of training
 # epochs, change the dropout rate, change the sample sizes for subgraph
