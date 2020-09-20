@@ -297,9 +297,35 @@ print("\troot_mean_square_error = ", rmse)
 print("\tmean_absolute_error = ", mae)
 
 # Compare the distributions of predicted and true rankings for the test set:
+<<<<<<< HEAD
 #h_true = plt.hist(y_true, bins=30, facecolor="green", alpha=0.5)
 #h_pred = plt.hist(y_pred, bins=30, facecolor="blue", alpha=0.5)
 #plt.xlabel("ranking")
 #plt.ylabel("count")
 #plt.legend(("True", "Predicted"))
 #plt.show()
+=======
+
+h_true = plt.hist(y_true, bins=30, facecolor="green", alpha=0.5)
+h_pred = plt.hist(y_pred, bins=30, facecolor="blue", alpha=0.5)
+plt.xlabel("ranking")
+plt.ylabel("count")
+plt.legend(("True", "Predicted"))
+plt.show()
+
+# We see that our model beats the "mean baseline" by a significant margin. To
+# further improve the model, you can try increasing the number of training
+# epochs, change the dropout rate, change the sample sizes for subgraph
+# sampling `num_samples`, hidden layer sizes `layer_sizes` of the HinSAGE part
+# of the model, or try increasing the number of HinSAGE layers.
+#
+# However, note that the distribution of predicted scores is still very narrow,
+# and rarely gives 1, 2 or 5 as a score.
+
+# This model uses a bipartite user-movie graph to learn to predict movie
+# ratings. It can be further enhanced by using additional relations, e.g.,
+# friendships between users, if they become available. And the best part is:
+# the underlying algorithm of the model does not need to change at all to take
+# these extra relations into account - all that changes is the graph that it
+# learns from!
+>>>>>>> cabb4e8b94e6163e960bbe9821967ea6653fea06

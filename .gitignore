@@ -125,3 +125,6 @@ Session.vim
 *.pkl
 *.h5
 *.emb
+
+# references
+refs/
